@@ -33,24 +33,44 @@ struct ContentView: View {
             }.tabItem {
                 Label("Rain", systemImage: "cloud.rain")
             }
-            
+                
             VortexView(.fireworks) {
                 Circle()
                     .fill(.white)
                     .blendMode(.plusLighter)
                     .frame(width: 32)
                     .tag("circle")
+                
             }.tabItem {
                 Label("Fireworks", systemImage: "fireworks")
             }
             
-            VortexView(.fire) {
-                Circle()
-                    .fill(.white)
-                    .blendMode(.plusLighter)
-                    .blur(radius: 3)
-                    .frame(width: 32)
-                    .tag("circle")
+            VStack  {
+                VortexView(.fire) {
+                    Circle()
+                        .fill(.white)
+                        .blendMode(.plusLighter)
+                        .blur(radius: 3)
+                        .frame(width: 32)
+                        .tag("circle")
+                }
+                VortexViewReader { proxy in
+                    VortexView(.confetti) {
+                        Rectangle()
+                            .fill(.white)
+                            .frame(width: 16, height: 16)
+                            .tag("square")
+
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 16)
+                            .tag("circle")
+                    }
+
+                    Button("Burst", action: proxy.burst)
+                        .padding(.bottom)
+                }
+                
             }.tabItem {
                 Label("Fire", systemImage: "flame")
             }
@@ -64,11 +84,30 @@ struct ContentView: View {
                 Label("Snow", systemImage: "snowflake")
             }
             
-            VortexView(.smoke) {
-                Circle()
-                    .fill(.gray)
-                    .frame(width: 23)
-                    .tag("circle")
+            VStack {
+                VortexView(.smoke) {
+                    Circle()
+                        .fill(.gray)
+                        .frame(width: 23)
+                        .tag("circle")
+                }
+                VortexViewReader { proxy in
+                    VortexView(.confetti) {
+                        Text("Swift")
+                            .foregroundStyle(.green)
+                            .font(.largeTitle)
+                            .tag("square")
+
+                        Text("SwiftUI")
+                            .foregroundStyle(.red)
+                            .font(.largeTitle)
+                            .tag("circle")
+                        
+                    }
+
+                    Button("Burst", action: proxy.burst)
+                        .padding(.bottom)
+                }
             }.tabItem {
                 Label("Smoke", systemImage: "fluid.transmission")
             }
